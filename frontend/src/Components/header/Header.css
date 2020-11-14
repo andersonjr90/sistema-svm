@@ -1,0 +1,29 @@
+.Header{
+    background-color: #E5E5E5;    
+    display: flex;
+    height: 140px;
+}
+
+.Nav{
+    padding: 0;
+    list-style: none;
+    margin: auto;
+}
+
+.User{
+    float: left;
+    margin-left: 1em;
+    margin-top: 1em;
+    padding-left: 2em;
+    border-left: 2px solid black; 
+    height: 100px;
+}
+
+.Logo{
+    float: right;
+}
+
+.ButtonMenu{
+    margin: 2em 1em;
+    height: 80px;
+}
