@@ -8,6 +8,8 @@ import Register from '../Register';
 import Agenda from './pages/Agenda';
 import FilaDeEspera from './pages/FilaDeEspera';
 import Tarefas from './pages/Tarefas';
+import TripulanteList from "./pages/TripulanteList";
+import TripulanteCreateUpdate from "./pages/TripulanteCreateUpdate";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -32,8 +34,17 @@ const Routes = () => (
                 {localStorage.getItem("admin") ? <Redirect to="/tarefas" /> : <Redirect to="/login" />}
                 <Tarefas />
             </Route>
+            <Route path="/tripulantes/list" exact >
+                <TripulanteList />
+            </Route>
+            <Route path="/tripulantes/" exact >
+                <TripulanteCreateUpdate />
+            </Route>
+            <Route path="/tripulantes/:pk" >
+                <TripulanteCreateUpdate />
+            </Route>
         </Switch>
     </BrowserRouter>
-)
+);
 
 export default Routes;
