@@ -1,5 +1,12 @@
-from rest_framework import viewsets
+from datetime import datetime
 
+import jwt
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from tcc.settings import SECRET_KEY
 from .serializers import *
 
 
@@ -34,10 +41,41 @@ class QuadroTarefasView(viewsets.ModelViewSet):
 
 
 class TarefaView(viewsets.ModelViewSet):
-    serializer_class = TarefaSerializer  # add this
+    serializer_class = TarefaSerializer
     queryset = Tarefa.objects.all()
 
 
 class TarefaTripulanteView(viewsets.ModelViewSet):
     serializer_class = TarefaTripulanteSerializer
     queryset = TarefaTripulante.objects.all()
+
+
+class LoginView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format=None):
+        email = request.POST['email']
+        senha = request.POST['senha']
+        if Usuario.objects.filter(email=email).exists():
+            usuario = Usuario.objects.get(email=email)
+            if usuario.senha == senha:
+                payload = {
+                    'user_id': usuario.id_usuario,
+                    'exp': datetime.now(),
+                    'token_type': 'access'
+                }
+                user = {
+                    'user': usuario.nome,
+                    'email': email,
+                    'time': datetime.now().time(),
+                    'userType': 10
+                }
+
+                token = jwt.encode(payload, SECRET_KEY).decode('utf-8')
+                return Response(
+                    {'success': 'true', 'token': token, 'user': user}
+                )
+
+        return Response(
+            {'success': 'false', 'msg': 'The credentials provided are invalid.'}
+        )

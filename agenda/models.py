@@ -1,4 +1,3 @@
-
 from django.db import models
 
 
@@ -78,11 +77,10 @@ class Tripulante(models.Model):
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True)
-    nome = models.TextField(max_length=300)
+    nome = models.CharField(max_length=300)
     senha = models.CharField(max_length=45)
     permissao = models.CharField(max_length=45)
     tipo_usuario = models.CharField(max_length=45)
 
     class Meta:
         db_table = 'usuario'
-

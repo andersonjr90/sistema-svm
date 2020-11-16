@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import (
     Agendamento, Compromisso, FilaEspera, QuadroTarefas,
-    Tripulante, Tarefa, TarefaTripulante, Tripulante, Usuario
+    Tarefa, TarefaTripulante, Tripulante, Usuario
 )
 
 

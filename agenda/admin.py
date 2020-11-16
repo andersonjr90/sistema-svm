@@ -1,10 +1,8 @@
 from django.contrib import admin
 
 from .models import (
-  Agendamento, Compromisso, FilaEspera, QuadroTarefas, Tarefa,
-  Tripulante,
-  TarefaTripulante,
-  Usuario
+    Agendamento, Compromisso, FilaEspera, QuadroTarefas, Tarefa,
+    Tripulante, TarefaTripulante, Usuario
 )
 
 
