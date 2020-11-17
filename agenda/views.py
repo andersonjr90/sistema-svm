@@ -70,16 +70,11 @@ class LoginView(APIView):
                     'exp': datetime.now(),
                     'token_type': 'access'
                 }
-                user = {
-                    'usuario': usuario.nome,
-                    'email': email,
-                    'tipo_usuario': usuario.tipo_usuario,
-                    'permissao': usuario.permissao
-                }
 
                 token = jwt.encode(payload, SECRET_KEY).decode('utf-8')
                 return Response(
-                    {'success': 'true', 'token': token, 'user': user}
+                    {'success': 'true', 'token': token, 'tipo_usuario':
+                        usuario.tipo_usuario}
                 )
 
         return Response(
