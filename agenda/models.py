@@ -78,7 +78,7 @@ class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True)
     nome = models.CharField(max_length=300)
-    senha = models.CharField(max_length=45)
+    senha = models.CharField(max_length=200)
     permissao = models.CharField(max_length=45)
     tipo_usuario = models.CharField(max_length=45)
 
