@@ -2,6 +2,7 @@ from datetime import datetime
 
 import jwt
 from rest_framework import viewsets
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -54,21 +55,26 @@ class LoginView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
-        email = request.POST['email']
-        senha = request.POST['senha']
+        data = JSONParser().parse(request)
+        serializer = LoginSerializer(data)
+        email = serializer.data['email']
+        senha = serializer.data['senha']
         if Usuario.objects.filter(email=email).exists():
             usuario = Usuario.objects.get(email=email)
             if usuario.senha == senha:
                 payload = {
-                    'user_id': usuario.id_usuario,
+                    'id_usuario': usuario.id_usuario,
+                    'email': email,
+                    'tipo_usuario': usuario.tipo_usuario,
+                    'permissao': usuario.permissao,
                     'exp': datetime.now(),
                     'token_type': 'access'
                 }
                 user = {
-                    'user': usuario.nome,
+                    'usuario': usuario.nome,
                     'email': email,
-                    'time': datetime.now().time(),
-                    'userType': 10
+                    'tipo_usuario': usuario.tipo_usuario,
+                    'permissao': usuario.permissao
                 }
 
                 token = jwt.encode(payload, SECRET_KEY).decode('utf-8')

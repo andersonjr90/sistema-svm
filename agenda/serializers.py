@@ -63,3 +63,14 @@ class TarefaTripulanteSerializer(serializers.ModelSerializer):
         model = TarefaTripulante
         fields = ('tarefa_id_tarefa', 'tripulante_id_tripulante')
 
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    senha = serializers.CharField(max_length=45)
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
